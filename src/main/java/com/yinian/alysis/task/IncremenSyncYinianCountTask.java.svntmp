@@ -1,0 +1,43 @@
+package com.yinian.alysis.task;
+
+import org.quartz.Job;
+import org.quartz.JobExecutionContext;
+import org.quartz.JobExecutionException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.scheduling.annotation.EnableScheduling;
+import org.springframework.stereotype.Component;
+import com.yinian.alysis.tool.RemoteShellTool;
+import com.yinian.alysis.transData.YinainCount2HiveUtil;
+import com.yinian.alysis.transData.jdbc.HiveJdbc;
+import com.yinian.alysis.transData.jdbc.MysqlJdbcYinianCount;
+import com.yinian.alysis.util.PropertiesUtil;
+
+
+/** 
+ * @ClassName: ScheduleTask 
+ * @Description:监控定时任务 
+ * @author 刘猛
+ * @date 2018�?06�?04�? 下午2:48:00
+ */
+@Configuration  
+@Component // 此注解必�?  
+@EnableScheduling // 此注解必�? 
+public class IncremenSyncYinianCountTask implements Job{
+	private static final Logger LOGGER =  LoggerFactory.getLogger(IncremenSyncYinianCountTask.class);  
+	@Override
+	public void execute(JobExecutionContext arg0) throws JobExecutionException {
+		YinainCount2HiveUtil util1 = new YinainCount2HiveUtil();
+    	try {
+			util1.addSynMysql2Hive(PropertiesUtil.getDataParam("bi.mysql.schema.yinian_count"));
+		} catch (Exception e) {
+			e.printStackTrace();
+			LOGGER.error("埋点表数据同步出现故�?",e);
+		}finally {
+			MysqlJdbcYinianCount.getInstance().releaseConn();
+			HiveJdbc.getInstance().releaseConn();
+			RemoteShellTool.getInstance().releaseConn();
+		}
+	}
+}

@@ -1,0 +1,47 @@
+{
+	"job": {
+		"content": [
+			{
+				"reader": {
+					"name": "mysqlreader",
+					"parameter": {
+						"column": [${mysql_cols}],
+						"connection": [
+							{
+								"jdbcUrl": [
+									"jdbc:mysql://10.29.217.13:3306/${schema}"
+								],
+								"table": [
+									"${mysql_table}"
+								]
+							}
+						],
+						"password": "i0Gkah5;uG",
+						"username": "biuser",
+						"where": "${condition}"
+					}
+				},
+				"writer": {
+					"name": "hdfswriter",
+					"parameter": {
+						"column": [
+							${hive_cols}
+						],
+						"compress": "NONE",
+						"defaultFS": "hdfs://emr-header-1.cluster-65705:9000",
+						"fieldDelimiter":",",
+						"fileName": "${table}",
+						"fileType": "orc",
+						"path": "/user/hive/warehouse/${schema}.db/${table}",
+ 						"writeMode": "append"
+					}
+				}
+			}
+		],
+		"setting": {
+			"speed": {
+				"channel": "30"
+			}
+		}
+	}
+}

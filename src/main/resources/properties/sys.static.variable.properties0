@@ -1,0 +1,49 @@
+#######同步数据定时cron表达式（每1小时执行）
+quarz_cron_expression=0 20 0/1 * * ?
+
+#######linux hive相关信息
+remote_ssh_ip=127.0.0.1
+remote_ssh_user=root
+remote_ssh_pwd=xcs@!#$DSFDF125
+
+#######datax JSON文件本地路径
+datax.local.path=/www/runjar/config/datax_config
+
+#######linux服务器上datax job主文件夹
+datax.job.dir=/root/datax/job
+
+#######datax jon json文件模板（部署到linux环境时需要将文件拷贝至相关路劲并修改此参数为当前路劲）
+datax.json.template=/www/runjar/config/datax_cfg_template.json
+
+
+#########hive连接配置
+hive.url=jdbc:hive2://127.0.0.1:10000/yinian
+hive.username=root
+hive.password=xcs@!#$DSFDF125
+hive.driver=org.apache.hive.jdbc.HiveDriver
+
+
+#########hive同步信息库连接配置
+hive.mysql.sync.url=jdbc:mysql://127.0.0.1:3306/hive_sync
+hive.mysql.sync.username=root
+hive.mysql.sync.password=EMRroot1234
+hive.mysql.sync.driver=com.mysql.jdbc.Driver
+
+#####业务库信息
+bi.mysql.url.part=jdbc:mysql://10.29.217.13:3306/
+bi.mysql.username=biuser
+bi.mysql.password=i0Gkah5;uG
+bi.mysql.driver=com.mysql.jdbc.Driver
+bi.mysql.schema.yinian=yinian
+bi.mysql.schema.yinian_count=yinian_count
+
+######mysql内网地址
+bi.mysql.url.inner.ip=10.29.217.13
+
+######邮件信息
+from.mail.account=635891879@qq.com
+from.mail.pwd=lm15927200959
+from.mail.smtp.host=smtp.qq.com
+to.mail.account=liumeng@zhuiyinanian.com
+from.personal=大数据同步平台
+to.personal=尊敬的工程师
