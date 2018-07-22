@@ -1,0 +1,2 @@
+# yinian_hive_increase_sqoop
+sqoop从mysql同步数据到hive
